@@ -33,4 +33,10 @@ public class VotingService {
 		return candidates.values().stream().toList();
 	}
 
+	public Integer countVote(String name) {
+		if (candidates.containsKey(name)) {
+			return candidates.get(name).getVoteCount();
+		}
+		return null;
+	}
 }

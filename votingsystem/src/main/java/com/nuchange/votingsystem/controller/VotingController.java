@@ -1,6 +1,7 @@
 package com.nuchange.votingsystem.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +34,12 @@ public class VotingController {
     public ResponseEntity<List<Candidate>> getCandidates(){
         return ResponseEntity.ok(votingService.getCandidates());
     }
+	 @GetMapping("/countvote")
+	    public ResponseEntity<Integer> countvote(@RequestParam String name){
+	        Integer voteCount = votingService.countVote(name);
+	        return Objects.nonNull(voteCount) ?
+	                ResponseEntity.ok(voteCount):
+	                ResponseEntity.badRequest().body(-1);
+	    }
 
 }
