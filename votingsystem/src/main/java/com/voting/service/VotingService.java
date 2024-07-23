@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import com.voting.model.Candidate;
 @Service
 public class VotingService {
 
-	private Map<String, Candidate> candidates = new HashMap<>();
+	private Map<String, Candidate> candidates = new ConcurrentHashMap();
 
 	public Boolean nominateCandidate(String candidateName) {
 		if (!candidates.containsKey(candidateName)) {
