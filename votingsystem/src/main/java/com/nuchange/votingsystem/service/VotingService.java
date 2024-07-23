@@ -1,6 +1,7 @@
 package com.nuchange.votingsystem.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -26,6 +27,10 @@ public class VotingService {
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
+	}
+
+	public List<Candidate> getCandidates() {
+		return candidates.values().stream().toList();
 	}
 
 }
