@@ -1,12 +1,13 @@
-package com.nuchange.votingsystem.service;
+package com.voting.service;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.nuchange.votingsystem.model.Candidate;
+import com.voting.model.Candidate;
 
 @Service
 public class VotingService {
@@ -39,4 +40,11 @@ public class VotingService {
 		}
 		return null;
 	}
+	public Map<String, Integer> getWinner(){
+        return candidates.entrySet().stream()
+                    .max(Map.Entry.comparingByValue(Comparator.comparingInt(Candidate::getVoteCount)))
+                    .map(entry -> Map.of(entry.getKey(), entry.getValue().getVoteCount()))
+                    .orElse(null);
+
+    }
 }

@@ -1,6 +1,7 @@
-package com.nuchange.votingsystem.controller;
+package com.voting.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nuchange.votingsystem.model.Candidate;
-import com.nuchange.votingsystem.service.VotingService;
+import com.voting.model.Candidate;
+import com.voting.service.VotingService;
 
 @RestController
 public class VotingController {
@@ -30,16 +31,25 @@ public class VotingController {
 		return votingService.castVote(name) ? ResponseEntity.ok("Vote casted!")
 				: ResponseEntity.badRequest().body("Candidate doesn't exists!");
 	}
-	@GetMapping("/listvote")
-    public ResponseEntity<List<Candidate>> getCandidates(){
-        return ResponseEntity.ok(votingService.getCandidates());
-    }
-	 @GetMapping("/countvote")
-	    public ResponseEntity<Integer> countvote(@RequestParam String name){
-	        Integer voteCount = votingService.countVote(name);
-	        return Objects.nonNull(voteCount) ?
-	                ResponseEntity.ok(voteCount):
-	                ResponseEntity.badRequest().body(-1);
-	    }
 
+	@GetMapping("/listvote")
+	public ResponseEntity<List<Candidate>> getCandidates() {
+		return ResponseEntity.ok(votingService.getCandidates());
+	}
+
+	@GetMapping("/countvote")
+	public ResponseEntity<Integer> countvote(@RequestParam String name) {
+		Integer voteCount = votingService.countVote(name);
+		return Objects.nonNull(voteCount) ? ResponseEntity.ok(voteCount) : ResponseEntity.badRequest().body(-1);
+	}
+
+	@GetMapping("/getwinner")
+	public ResponseEntity<Map<String, Integer>> getWinner() {
+		Map<String, Integer> winner = votingService.getWinner();
+		if (Objects.nonNull(winner) && !winner.isEmpty()) {
+			return ResponseEntity.ok(winner);
+		} else {
+			return ResponseEntity.badRequest().body(Map.of("No candidates found!", 0));
+		}
+	}
 }

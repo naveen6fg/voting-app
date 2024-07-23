@@ -1,4 +1,4 @@
-package com.nuchange.votingsystem.model;
+package com.voting.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
