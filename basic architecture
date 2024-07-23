@@ -1,0 +1,33 @@
+Voting System Architecture and Design
+
+1. Architecture:
+   The application follows a layered architecture with the following components:
+   - Controller (VotingController): Handles HTTP requests and responses
+   - Service (VotingService): Contains business logic and manages data
+   - Model (Candidate): Represents the data structure
+
+2. Design Patterns:
+   - Singleton: Spring's dependency injection ensures a single instance of VotingService
+   - MVC: Separation of concerns between Controller, Service, and Model
+
+3. Data Storage:
+   - In-memory storage using ConcurrentHashMap for thread-safe operations
+
+4. Concurrency:
+   - ConcurrentHashMap for thread-safe access to candidate data
+   - Synchronized blocks for atomic operations on individual candidates
+
+5. API Design:
+   - RESTful API design with appropriate HTTP methods and status codes
+   - Query parameters for input data
+
+6. Testing:
+   - Unit tests for VotingService to ensure correct functionality
+
+7. Scalability:
+   - The current design can handle multiple users simultaneously
+   - For higher scalability, consider distributed caching or a database backend
+
+8. Security:
+   - Input validation to prevent malicious inputs
+   - Consider adding authentication and authorization for production use
