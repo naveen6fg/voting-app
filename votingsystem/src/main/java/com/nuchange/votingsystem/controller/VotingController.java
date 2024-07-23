@@ -11,15 +11,19 @@ import com.nuchange.votingsystem.service.VotingService;
 @RestController
 public class VotingController {
 	@Autowired
-    private VotingService votingService;
+	private VotingService votingService;
 
 	@PostMapping("/entercandidate")
-    public ResponseEntity<String> candidateNomination(@RequestParam String name){
-        return votingService.nominateCandidate(name) ?
-                ResponseEntity.ok("Candidate nomination completed successfully!"):
-                ResponseEntity.badRequest().body("Candidate already exists");
+	public ResponseEntity<String> candidateNomination(@RequestParam String name) {
+		return votingService.nominateCandidate(name) ? ResponseEntity.ok("Candidate nomination completed successfully!")
+				: ResponseEntity.badRequest().body("Candidate already exists");
 
-    }
+	}
 
- 
+	@PostMapping("/castvote")
+	public ResponseEntity<String> castVote(@RequestParam String name) {
+		return votingService.castVote(name) ? ResponseEntity.ok("Vote casted!")
+				: ResponseEntity.badRequest().body("Candidate doesn't exists!");
+	}
+
 }
